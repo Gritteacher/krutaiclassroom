@@ -18,7 +18,8 @@ body {
   margin: 0;
   background: var(--white);
   color: var(--ink);
-  font-family: "Noto Sans Thai", "Sarabun", "Leelawadee UI", Tahoma, sans-serif;
+  font-family: "Prompt", "Sarabun", "Leelawadee UI", Tahoma, sans-serif;
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
 }
 a { color: inherit; text-decoration: none; }
@@ -274,4 +275,15 @@ footer { border-top: 1px solid var(--line); background: var(--cream); }
   .admin-hero .admin-primary { width: 100%; }
   .admin-stats { grid-template-columns: 1fr; }
   .login-card { padding: 28px 22px; }
+}
+
+/* Prompt typography: light throughout, regular only where hierarchy needs it. */
+body,
+body * {
+  font-family: "Prompt", "Sarabun", "Leelawadee UI", Tahoma, sans-serif !important;
+  font-weight: 300 !important;
+}
+
+body :is(h1, h2, h3, h4, h5, h6, strong, b, .brand, .footer-brand) {
+  font-weight: 400 !important;
 }
