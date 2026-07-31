@@ -1,24 +1,27 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import ImageSlider from "../components/ImageSlider";
 import Layout from "../components/Layout";
 import { BrowserWindow, PencilSpark, SiteIcon } from "../components/SvgArt";
-import { getPublishedPosts, getPublishedProjects } from "../lib/content";
+import { getPublishedPosts, getPublishedProjects, getPublishedSlides } from "../lib/content";
 import { formatThaiDate } from "../lib/format";
 import { publicCoverUrl } from "../lib/supabase";
-import type { Post, Project } from "../lib/types";
+import type { Post, Project, Slide } from "../lib/types";
 
 export default function HomePage() {
   const { hash } = useLocation();
   const [projects, setProjects] = useState<Project[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
+  const [slides, setSlides] = useState<Slide[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    Promise.all([getPublishedProjects(), getPublishedPosts(3)])
-      .then(([projectRows, postRows]) => {
+    Promise.all([getPublishedProjects(), getPublishedPosts(3), getPublishedSlides()])
+      .then(([projectRows, postRows, slideRows]) => {
         setProjects(projectRows);
         setPosts(postRows);
+        setSlides(slideRows);
       })
       .catch(() => setError("ไม่สามารถโหลดข้อมูลได้ในขณะนี้"))
       .finally(() => setLoading(false));
@@ -52,6 +55,8 @@ export default function HomePage() {
             <div className="hero-art" aria-hidden="true"><BrowserWindow /></div>
           </div>
         </section>
+
+        <ImageSlider slides={slides} />
 
         <section className="section shell" id="websites">
           <div className="section-head">
