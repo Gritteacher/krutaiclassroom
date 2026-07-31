@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Layout from "../components/Layout";
 import { BrowserWindow, PencilSpark, SiteIcon } from "../components/SvgArt";
 import { getPublishedPosts, getPublishedProjects } from "../lib/content";
@@ -8,6 +8,7 @@ import { publicCoverUrl } from "../lib/supabase";
 import type { Post, Project } from "../lib/types";
 
 export default function HomePage() {
+  const { hash } = useLocation();
   const [projects, setProjects] = useState<Project[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
@@ -24,10 +25,12 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    if (window.location.hash) {
-      requestAnimationFrame(() => document.querySelector(window.location.hash)?.scrollIntoView());
-    }
-  }, []);
+    if (!hash) return;
+
+    requestAnimationFrame(() => {
+      document.querySelector(hash)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, [hash]);
 
   return (
     <Layout>
