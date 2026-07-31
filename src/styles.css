@@ -26,6 +26,7 @@ a { color: inherit; text-decoration: none; }
 button, input, textarea, select { font: inherit; }
 button:disabled { cursor: not-allowed; opacity: .55; }
 .shell { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
+#websites, #stories, #about { scroll-margin-top: 84px; }
 
 .site-header {
   position: sticky;
