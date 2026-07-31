@@ -2,9 +2,9 @@ import type { Session } from "@supabase/supabase-js";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
-import type { Post, Project } from "../lib/types";
+import type { Post, Project, Slide } from "../lib/types";
 
-type Tab = "posts" | "projects";
+type Tab = "posts" | "projects" | "slides";
 
 export default function AdminPage() {
   const navigate = useNavigate();
@@ -12,9 +12,11 @@ export default function AdminPage() {
   const [authorized, setAuthorized] = useState<boolean | undefined>(undefined);
   const [projects, setProjects] = useState<Project[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
+  const [slides, setSlides] = useState<Slide[]>([]);
   const [tab, setTab] = useState<Tab>("posts");
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [editingPost, setEditingPost] = useState<Post | null>(null);
+  const [editingSlide, setEditingSlide] = useState<Slide | null>(null);
   const [status, setStatus] = useState("");
 
   useEffect(() => {
@@ -34,12 +36,14 @@ export default function AdminPage() {
       supabase.rpc("is_admin"),
       supabase.from("projects").select("*").order("sort_order").order("created_at"),
       supabase.from("posts").select("*").order("published_at", { ascending: false }),
-    ]).then(([adminResult, projectsResult, postsResult]) => {
+      supabase.from("slides").select("*").order("sort_order").order("created_at"),
+    ]).then(([adminResult, projectsResult, postsResult, slidesResult]) => {
       const isAdmin = adminResult.data === true;
       setAuthorized(isAdmin);
       if (isAdmin) {
         setProjects((projectsResult.data ?? []) as Project[]);
         setPosts((postsResult.data ?? []) as Post[]);
+        setSlides((slidesResult.data ?? []) as Slide[]);
       }
     });
   }, [session, navigate]);
@@ -48,7 +52,8 @@ export default function AdminPage() {
     posts: posts.length,
     published: posts.filter((post) => post.published).length,
     projects: projects.length,
-  }), [posts, projects]);
+    slides: slides.length,
+  }), [posts, projects, slides]);
 
   async function signOut() {
     await supabase?.auth.signOut();
@@ -140,13 +145,63 @@ export default function AdminPage() {
     setStatus(values.published ? "เผยแพร่เรื่องราวแล้ว" : "บันทึกฉบับร่างแล้ว");
   }
 
+  async function saveSlide(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!supabase || !session) return;
+    setStatus("กำลังอัปโหลดและบันทึกสไลด์...");
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
+    let imagePath = editingSlide?.image_path ?? "";
+    const image = form.get("image");
+
+    if (image instanceof File && image.size) {
+      const extension = image.name.split(".").pop()?.toLowerCase() || "jpg";
+      const path = `${session.user.id}/slides/${crypto.randomUUID()}.${extension}`;
+      const upload = await supabase.storage.from("post-images").upload(path, image, {
+        cacheControl: "31536000",
+        upsert: false,
+      });
+      if (upload.error) return setStatus(`อัปโหลดภาพไม่สำเร็จ: ${upload.error.message}`);
+      imagePath = path;
+    }
+
+    if (!imagePath) return setStatus("กรุณาเลือกรูปภาพสำหรับสไลด์");
+
+    const values = {
+      title: String(form.get("title") ?? "").trim(),
+      caption: String(form.get("caption") ?? "").trim(),
+      image_path: imagePath,
+      link_url: String(form.get("link_url") ?? "").trim(),
+      sort_order: Number(form.get("sort_order") ?? 0),
+      published: form.get("published") === "on",
+    };
+    const result = editingSlide
+      ? await supabase.from("slides").update(values).eq("id", editingSlide.id).select().single()
+      : await supabase.from("slides").insert(values).select().single();
+    if (result.error) return setStatus(`บันทึกไม่สำเร็จ: ${result.error.message}`);
+
+    const row = result.data as Slide;
+    setSlides((current) => (editingSlide
+      ? current.map((item) => item.id === row.id ? row : item)
+      : [...current, row]
+    ).sort((a, b) => a.sort_order - b.sort_order));
+    setEditingSlide(null);
+    formElement.reset();
+    setStatus(values.published ? "เพิ่มภาพในสไลด์แล้ว" : "บันทึกสไลด์แบบซ่อนไว้แล้ว");
+  }
+
   async function remove(kind: Tab, id: string) {
     if (!supabase || !window.confirm("ต้องการลบรายการนี้ใช่หรือไม่?")) return;
-    const table = kind === "posts" ? "posts" : "projects";
+    const table = kind;
+    const slideImage = kind === "slides" ? slides.find((item) => item.id === id)?.image_path : null;
     const { error } = await supabase.from(table).delete().eq("id", id);
     if (error) return setStatus(`ลบไม่สำเร็จ: ${error.message}`);
     if (kind === "posts") setPosts((current) => current.filter((item) => item.id !== id));
-    else setProjects((current) => current.filter((item) => item.id !== id));
+    else if (kind === "projects") setProjects((current) => current.filter((item) => item.id !== id));
+    else {
+      setSlides((current) => current.filter((item) => item.id !== id));
+      if (slideImage) await supabase.storage.from("post-images").remove([slideImage]);
+    }
     setStatus("ลบรายการเรียบร้อยแล้ว");
   }
 
@@ -162,17 +217,19 @@ export default function AdminPage() {
       </header>
       <div className="admin-shell">
         <section className="admin-hero">
-          <div><p>ภาพรวม</p><h1>สวัสดีครับ ครูไต๋ 👋</h1><span>จัดการเว็บไซต์และเรื่องราวทั้งหมดได้จากหน้านี้</span></div>
+          <div><p>ภาพรวม</p><h1>สวัสดีครับ ครูไต๋ 👋</h1><span>จัดการเว็บไซต์ เรื่องราว และสไลด์รูปภาพได้จากหน้านี้</span></div>
           <button className="admin-primary" onClick={() => { setTab("posts"); setEditingPost(null); }}>+ เขียนเรื่องราวใหม่</button>
         </section>
         <section className="admin-stats">
           <div><strong>{counts.posts}</strong><span>เรื่องราวทั้งหมด</span></div>
           <div><strong>{counts.published}</strong><span>เผยแพร่แล้ว</span></div>
           <div><strong>{counts.projects}</strong><span>เว็บไซต์ทั้งหมด</span></div>
+          <div><strong>{counts.slides}</strong><span>รูปในสไลด์</span></div>
         </section>
         <div className="admin-tabs">
           <button className={tab === "posts" ? "active" : ""} onClick={() => setTab("posts")}>เรื่องราว</button>
           <button className={tab === "projects" ? "active" : ""} onClick={() => setTab("projects")}>เว็บไซต์ของฉัน</button>
+          <button className={tab === "slides" ? "active" : ""} onClick={() => setTab("slides")}>สไลด์รูปภาพ</button>
         </div>
         {status && <div className="admin-status">{status}</div>}
         {tab === "posts" ? (
@@ -185,7 +242,7 @@ export default function AdminPage() {
             />
             <PostForm key={editingPost?.id ?? "new"} post={editingPost} onSubmit={savePost} onCancel={() => setEditingPost(null)} />
           </div>
-        ) : (
+        ) : tab === "projects" ? (
           <div className="admin-grid">
             <AdminList
               title="เว็บไซต์ทั้งหมด"
@@ -194,6 +251,16 @@ export default function AdminPage() {
               onRemove={(id) => remove("projects", id)}
             />
             <ProjectForm key={editingProject?.id ?? "new"} project={editingProject} onSubmit={saveProject} onCancel={() => setEditingProject(null)} />
+          </div>
+        ) : (
+          <div className="admin-grid">
+            <AdminList
+              title="รูปภาพในสไลด์"
+              items={slides.map((slide) => ({ id: slide.id, title: slide.title || "รูปภาพไม่มีชื่อ", meta: `ลำดับ ${slide.sort_order}${slide.link_url ? " • มีลิงก์" : ""}`, live: slide.published }))}
+              onEdit={(id) => setEditingSlide(slides.find((slide) => slide.id === id) ?? null)}
+              onRemove={(id) => remove("slides", id)}
+            />
+            <SlideForm key={editingSlide?.id ?? "new"} slide={editingSlide} onSubmit={saveSlide} onCancel={() => setEditingSlide(null)} />
           </div>
         )}
       </div>
@@ -266,6 +333,31 @@ function ProjectForm({ project, onSubmit, onCancel }: {
       </div>
       <label className="check-label"><input name="published" type="checkbox" defaultChecked={project?.published ?? true} /> แสดงบนหน้าเว็บไซต์</label>
       <div className="form-actions">{project && <button type="button" className="admin-secondary" onClick={onCancel}>ยกเลิก</button>}<button className="admin-primary" type="submit">บันทึกเว็บไซต์</button></div>
+    </form>
+  );
+}
+
+function SlideForm({ slide, onSubmit, onCancel }: {
+  slide: Slide | null;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onCancel: () => void;
+}) {
+  return (
+    <form className="admin-panel editor-panel" onSubmit={onSubmit}>
+      <div className="panel-title"><h2>{slide ? "แก้ไขสไลด์" : "เพิ่มรูปในสไลด์"}</h2></div>
+      <label>
+        รูปภาพ {slide ? "(เว้นไว้หากไม่ต้องการเปลี่ยน)" : ""}
+        <input name="image" type="file" accept="image/jpeg,image/png,image/webp,image/gif" required={!slide} />
+      </label>
+      <label>หัวข้อบนภาพ<input name="title" defaultValue={slide?.title} placeholder="เว้นว่างได้" maxLength={180} /></label>
+      <label>คำอธิบาย<textarea name="caption" rows={3} defaultValue={slide?.caption} placeholder="เว้นว่างได้" maxLength={400} /></label>
+      <label>ลิงก์เมื่อกดรูป<input name="link_url" type="url" defaultValue={slide?.link_url} placeholder="https:// (เว้นว่างได้)" /></label>
+      <label>ลำดับ<input name="sort_order" type="number" min="0" defaultValue={slide?.sort_order ?? 0} /></label>
+      <label className="check-label"><input name="published" type="checkbox" defaultChecked={slide?.published ?? true} /> แสดงในสไลด์หน้าเว็บไซต์</label>
+      <div className="form-actions">
+        {slide && <button type="button" className="admin-secondary" onClick={onCancel}>ยกเลิก</button>}
+        <button className="admin-primary" type="submit">บันทึกสไลด์</button>
+      </div>
     </form>
   );
 }
