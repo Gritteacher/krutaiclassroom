@@ -25,3 +25,15 @@ export type Post = {
   created_at?: string;
   updated_at?: string;
 };
+
+export type Slide = {
+  id: string;
+  title: string;
+  caption: string;
+  image_path: string;
+  link_url: string;
+  sort_order: number;
+  published: boolean;
+  created_at?: string;
+  updated_at?: string;
+};
