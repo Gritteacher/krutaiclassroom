@@ -39,7 +39,7 @@ export default function HomePage() {
           <div className="shell hero-grid">
             <div className="hero-copy">
               <p className="eyebrow"><span />พื้นที่เล็ก ๆ ของคนเป็นครู</p>
-              <h1>เรียนรู้ สร้างสรรค์<br /><em>และแบ่งปัน</em></h1>
+              <h1>ห้องเรียน<br /><em>ครูไต๋</em></h1>
               <p className="hero-lead">
                 รวมเว็บไซต์เพื่อการศึกษา ระบบงานในโรงเรียน
                 และเรื่องราวระหว่างทางของครูไต๋
