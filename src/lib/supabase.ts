@@ -15,7 +15,9 @@ export const supabase = isSupabaseConfigured
     })
   : null;
 
-export function publicCoverUrl(path: string | null) {
+export function publicImageUrl(path: string | null) {
   if (!path || !supabase) return null;
   return supabase.storage.from("post-images").getPublicUrl(path).data.publicUrl;
 }
+
+export const publicCoverUrl = publicImageUrl;
