@@ -31,8 +31,8 @@ export default function StoryPage() {
     datePublished: post.published_at,
     dateModified: post.updated_at ?? post.published_at,
     inLanguage: "th-TH",
-    author: { "@type": "Person", name: "ครูไต๋" },
-    publisher: { "@type": "Person", name: "ครูไต๋" },
+    author: { "@type": "Person", name: "กฤษณพล ทองอุ่น", alternateName: "ครูไต๋" },
+    publisher: { "@type": "Person", name: "กฤษณพล ทองอุ่น", alternateName: "ครูไต๋" },
   };
   if (coverUrl) articleData.image = [coverUrl];
 
@@ -50,7 +50,7 @@ export default function StoryPage() {
         <Link className="back-link" to="/stories">← กลับไปหน้าเรื่องราว</Link>
         <p className="section-kicker">{post.category}</p>
         <h1>{post.title}</h1>
-        <div className="story-meta article-meta"><time>{formatThaiDate(post.published_at, true)}</time><span>ห้องเรียนครูไต๋</span></div>
+        <div className="story-meta article-meta"><time>{formatThaiDate(post.published_at, true)}</time><span>ครูไต๋ กฤษณพล ทองอุ่น</span></div>
         <p className="article-excerpt">{post.excerpt}</p>
         {coverUrl ? <img className="article-cover" src={coverUrl} alt="" /> : <div className="article-placeholder"><PencilSpark /></div>}
         <div className="article-content">{post.content}</div>
