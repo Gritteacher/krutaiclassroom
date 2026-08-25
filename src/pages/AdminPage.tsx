@@ -1,6 +1,7 @@
 import type { Session } from "@supabase/supabase-js";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Seo, { SITE_NAME } from "../components/Seo";
 import { supabase } from "../lib/supabase";
 import type { Post, Project, Slide } from "../lib/types";
 
@@ -61,18 +62,21 @@ export default function AdminPage() {
   }
 
   if (session === undefined || authorized === undefined && session) {
-    return <main className="admin-page"><section className="admin-message"><h1>กำลังตรวจสอบสิทธิ์...</h1></section></main>;
+    return <><Seo title={`จัดการเว็บไซต์ | ${SITE_NAME}`} path="/admin" noIndex /><main className="admin-page"><section className="admin-message"><h1>กำลังตรวจสอบสิทธิ์...</h1></section></main></>;
   }
 
   if (!authorized) {
     return (
-      <main className="admin-page">
-        <section className="admin-message">
-          <h1>บัญชีนี้ไม่มีสิทธิ์</h1>
-          <p>ผู้ใช้ {session?.user.email} ไม่ได้อยู่ในรายชื่อผู้ดูแลเว็บไซต์</p>
-          <button className="admin-secondary" onClick={signOut}>ออกจากระบบ</button>
-        </section>
-      </main>
+      <>
+        <Seo title={`จัดการเว็บไซต์ | ${SITE_NAME}`} path="/admin" noIndex />
+        <main className="admin-page">
+          <section className="admin-message">
+            <h1>บัญชีนี้ไม่มีสิทธิ์</h1>
+            <p>ผู้ใช้ {session?.user.email} ไม่ได้อยู่ในรายชื่อผู้ดูแลเว็บไซต์</p>
+            <button className="admin-secondary" onClick={signOut}>ออกจากระบบ</button>
+          </section>
+        </main>
+      </>
     );
   }
 
@@ -206,7 +210,9 @@ export default function AdminPage() {
   }
 
   return (
-    <main className="admin-page">
+    <>
+      <Seo title={`จัดการเว็บไซต์ | ${SITE_NAME}`} path="/admin" noIndex />
+      <main className="admin-page">
       <header className="admin-topbar">
         <div><p>ห้องเรียนครูไต๋</p><strong>จัดการเว็บไซต์</strong></div>
         <div className="admin-account">
@@ -264,7 +270,8 @@ export default function AdminPage() {
           </div>
         )}
       </div>
-    </main>
+      </main>
+    </>
   );
 }
 
