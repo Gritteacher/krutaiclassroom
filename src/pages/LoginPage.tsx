@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
+import Seo, { SITE_NAME } from "../components/Seo";
 import { isSupabaseConfigured, supabase } from "../lib/supabase";
 
 export default function LoginPage() {
@@ -29,6 +30,7 @@ export default function LoginPage() {
 
   return (
     <Layout footer={false}>
+      <Seo title={`เข้าสู่ระบบหลังบ้าน | ${SITE_NAME}`} path="/login" noIndex />
       <main className="login-page">
         <section className="login-card">
           <p className="section-kicker">สำหรับผู้ดูแล</p>
