@@ -39,16 +39,31 @@ export default function HomePage() {
   return (
     <Layout>
       <Seo
-        title="ห้องเรียนครูไต๋ | เว็บไซต์และเรื่องราวของครูไต๋"
+        title="ห้องเรียนครูไต๋ กฤษณพล ทองอุ่น | เว็บไซต์และเรื่องราว"
         description={DEFAULT_DESCRIPTION}
         path="/"
         structuredData={{
           "@context": "https://schema.org",
-          "@type": "WebSite",
-          name: SITE_NAME,
-          url: `${SITE_URL}/`,
-          description: DEFAULT_DESCRIPTION,
-          inLanguage: "th-TH",
+          "@graph": [
+            {
+              "@type": "WebSite",
+              "@id": `${SITE_URL}/#website`,
+              name: SITE_NAME,
+              alternateName: ["ห้องเรียนครูไต๋", "เว็บไซต์ครูไต๋", "ครูไต๋ กฤษณพล ทองอุ่น"],
+              url: `${SITE_URL}/`,
+              description: DEFAULT_DESCRIPTION,
+              inLanguage: "th-TH",
+              creator: { "@id": `${SITE_URL}/#teacher` },
+            },
+            {
+              "@type": "Person",
+              "@id": `${SITE_URL}/#teacher`,
+              name: "กฤษณพล ทองอุ่น",
+              alternateName: ["ครูไต๋", "ครูไต๋ กฤษณพล ทองอุ่น"],
+              url: `${SITE_URL}/`,
+              jobTitle: "ครู",
+            },
+          ],
         }}
       />
       <main>
@@ -56,7 +71,7 @@ export default function HomePage() {
           <div className="shell hero-grid">
             <div className="hero-copy">
               <p className="eyebrow"><span />พื้นที่เล็ก ๆ ของคนเป็นครู</p>
-              <h1>ห้องเรียน<br /><em>ครูไต๋</em></h1>
+              <h1>ห้องเรียน<br /><em>ครูไต๋</em><span className="hero-name">กฤษณพล ทองอุ่น</span></h1>
               <p className="hero-lead">
                 รวมเว็บไซต์เพื่อการศึกษา ระบบงานในโรงเรียน
                 และเรื่องราวระหว่างทางของครูไต๋
@@ -142,7 +157,7 @@ export default function HomePage() {
             <div>
               <p className="section-kicker">ยินดีที่ได้รู้จัก</p>
               <h2>ห้องเรียนที่ไม่ได้มีแค่สี่ผนัง</h2>
-              <p>พื้นที่นี้รวบรวมสิ่งที่ครูไต๋ได้สร้าง ทดลอง และเรียนรู้ ทั้งระบบดิจิทัลเพื่อโรงเรียน สื่อการเรียนรู้ และบันทึกจากประสบการณ์ในห้องเรียน</p>
+              <p>เว็บไซต์ส่วนตัวของครูไต๋ กฤษณพล ทองอุ่น พื้นที่นี้รวบรวมสิ่งที่ครูไต๋ได้สร้าง ทดลอง และเรียนรู้ ทั้งระบบดิจิทัลเพื่อโรงเรียน สื่อการเรียนรู้ และบันทึกจากประสบการณ์ในห้องเรียน</p>
             </div>
             <a className="button quiet about-button" href="mailto:gritsn.th@gmail.com">ติดต่อครูไต๋</a>
           </div>
