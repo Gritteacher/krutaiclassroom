@@ -31,7 +31,7 @@ export default function ImageSlider({ slides }: { slides: Slide[] }) {
             const imageUrl = publicImageUrl(slide.image_path);
             const picture = (
               <div className="slide-frame">
-                {imageUrl && <img src={imageUrl} alt={slide.title || "ภาพกิจกรรมห้องเรียนครูไต๋"} />}
+                {imageUrl && <img src={imageUrl} alt={slide.title || "ภาพกิจกรรมห้องเรียนครูไต๋ กฤษณพล ทองอุ่น"} />}
                 {(slide.title || slide.caption) && (
                   <div className="slide-caption">
                     {slide.title && <h2>{slide.title}</h2>}
