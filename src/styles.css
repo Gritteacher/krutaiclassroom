@@ -188,6 +188,9 @@ footer { border-top: 1px solid var(--line); background: var(--cream); }
 .footer-wrap { min-height: 130px; display: flex; align-items: center; justify-content: space-between; gap: 30px; color: var(--muted); font-size: .84rem; }
 .footer-brand { color: var(--ink); }
 .footer-brand p { margin: 3px 0 0; color: var(--muted); font-size: .74rem; font-weight: 500; }
+.footer-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; text-align: right; }
+.footer-meta p { margin: 0; }
+.visit-counter { color: #7b8b84; font-size: .7rem; letter-spacing: .01em; }
 
 .listing-title { margin: 0; font-size: clamp(2.5rem, 5vw, 4.4rem); line-height: 1.15; letter-spacing: -.05em; }
 .article-shell { width: min(760px, calc(100% - 40px)); min-height: 70vh; margin-inline: auto; padding-block: 70px 110px; }
@@ -319,6 +322,7 @@ footer { border-top: 1px solid var(--line); background: var(--cream); }
   .about-mark { width: 68px; height: 68px; font-size: 1.8rem; }
   .about-button { grid-column: 1; }
   .footer-wrap { align-items: flex-start; flex-direction: column; justify-content: center; }
+  .footer-meta { align-items: flex-start; text-align: left; }
   .loading-grid, .form-row { grid-template-columns: 1fr; }
   .admin-topbar, .admin-hero, .admin-list-item { align-items: flex-start; flex-direction: column; }
   .admin-account { flex-wrap: wrap; }
