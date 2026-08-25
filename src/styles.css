@@ -38,6 +38,7 @@ button:disabled { cursor: not-allowed; opacity: .55; }
 }
 .nav-wrap { min-height: 72px; display: flex; align-items: center; justify-content: space-between; }
 .brand, .footer-brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.02em; }
+.brand > span:last-child { white-space: nowrap; }
 .brand-mark {
   width: 38px; height: 38px; display: grid; place-items: center;
   border-radius: 12px; background: var(--green); color: #fff;
@@ -72,6 +73,10 @@ nav a:hover { color: var(--green); }
 .hero h1 em::after {
   content: ""; position: absolute; left: 2%; right: 0; bottom: 3px; height: 11px;
   z-index: -1; border-radius: 99px; background: var(--yellow); opacity: .7;
+}
+.hero-name {
+  display: block; margin-top: 13px; color: var(--ink); font-size: clamp(1.25rem, 2.2vw, 1.85rem);
+  line-height: 1.3; letter-spacing: -.025em; font-weight: 400;
 }
 .hero-lead { max-width: 560px; margin: 26px 0 0; color: var(--muted); font-size: 1.12rem; line-height: 1.85; }
 .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
@@ -290,6 +295,8 @@ footer { border-top: 1px solid var(--line); background: var(--cream); }
 @media (max-width: 620px) {
   .shell { width: min(100% - 28px, 1160px); }
   .nav-wrap { min-height: 64px; }
+  .brand { gap: 9px; font-size: .84rem; }
+  .brand-mark { width: 34px; height: 34px; }
   nav { display: none; }
   .hero-grid { min-height: auto; padding-block: 48px 62px; }
   .hero h1 { font-size: clamp(2.55rem, 14vw, 3.7rem); }
