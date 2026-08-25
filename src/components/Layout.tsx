@@ -7,9 +7,9 @@ export default function Layout({ children, footer = true }: { children: ReactNod
     <>
       <header className="site-header">
         <div className="shell nav-wrap">
-          <Link className="brand" to="/" aria-label="ห้องเรียนครูไต๋ หน้าแรก">
+          <Link className="brand" to="/" aria-label="ห้องเรียนครูไต๋ กฤษณพล ทองอุ่น หน้าแรก">
             <span className="brand-mark"><BookStack /></span>
-            <span>ห้องเรียนครูไต๋</span>
+            <span>ห้องเรียนครูไต๋ กฤษณพล ทองอุ่น</span>
           </Link>
           <nav aria-label="เมนูหลัก">
             <Link to="/#websites">เว็บไซต์</Link>
@@ -25,11 +25,11 @@ export default function Layout({ children, footer = true }: { children: ReactNod
             <div className="footer-brand">
               <span className="brand-mark small"><BookStack /></span>
               <div>
-                <strong>ห้องเรียนครูไต๋</strong>
-                <p>เรียนรู้ • สร้างสรรค์ • แบ่งปัน</p>
+                <strong>ห้องเรียนครูไต๋ กฤษณพล ทองอุ่น</strong>
+                <p>เว็บไซต์ส่วนตัวของครูไต๋</p>
               </div>
             </div>
-            <p>© {new Date().getFullYear()} ห้องเรียนครูไต๋</p>
+            <p>© {new Date().getFullYear()} ห้องเรียนครูไต๋ กฤษณพล ทองอุ่น</p>
           </div>
         </footer>
       )}
