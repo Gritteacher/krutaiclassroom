@@ -214,7 +214,7 @@ export default function AdminPage() {
       <Seo title={`จัดการเว็บไซต์ | ${SITE_NAME}`} path="/admin" noIndex />
       <main className="admin-page">
       <header className="admin-topbar">
-        <div><p>ห้องเรียนครูไต๋</p><strong>จัดการเว็บไซต์</strong></div>
+        <div><p>ห้องเรียนครูไต๋ กฤษณพล ทองอุ่น</p><strong>จัดการเว็บไซต์</strong></div>
         <div className="admin-account">
           <span>{session?.user.email}</span>
           <Link to="/">ดูหน้าเว็บไซต์</Link>
