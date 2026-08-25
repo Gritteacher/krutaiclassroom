@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { BookStack } from "./SvgArt";
+import VisitCounter from "./VisitCounter";
 
 export default function Layout({ children, footer = true }: { children: ReactNode; footer?: boolean }) {
   return (
@@ -29,7 +30,10 @@ export default function Layout({ children, footer = true }: { children: ReactNod
                 <p>เว็บไซต์ส่วนตัวของครูไต๋</p>
               </div>
             </div>
-            <p>© {new Date().getFullYear()} ห้องเรียนครูไต๋ กฤษณพล ทองอุ่น</p>
+            <div className="footer-meta">
+              <VisitCounter />
+              <p>© {new Date().getFullYear()} ห้องเรียนครูไต๋ กฤษณพล ทองอุ่น</p>
+            </div>
           </div>
         </footer>
       )}
