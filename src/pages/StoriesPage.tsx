@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
+import Seo, { SITE_NAME, SITE_URL } from "../components/Seo";
 import { PencilSpark } from "../components/SvgArt";
 import { getPublishedPosts } from "../lib/content";
 import { formatThaiDate } from "../lib/format";
@@ -17,6 +18,18 @@ export default function StoriesPage() {
 
   return (
     <Layout>
+      <Seo
+        title={`เรื่องราวทั้งหมด | ${SITE_NAME}`}
+        description="รวมบันทึกจากห้องเรียน เทคโนโลยี การศึกษา และสิ่งที่ครูไต๋ได้เรียนรู้ระหว่างทาง"
+        path="/stories"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: `เรื่องราวทั้งหมด | ${SITE_NAME}`,
+          url: `${SITE_URL}/stories`,
+          inLanguage: "th-TH",
+        }}
+      />
       <main className="stories-section">
         <div className="section shell">
           <div className="section-head">
