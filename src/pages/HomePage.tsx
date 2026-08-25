@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ImageSlider from "../components/ImageSlider";
 import Layout from "../components/Layout";
+import Seo, { DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from "../components/Seo";
 import { BrowserWindow, PencilSpark, SiteIcon } from "../components/SvgArt";
 import { getPublishedPosts, getPublishedProjects, getPublishedSlides } from "../lib/content";
 import { formatThaiDate } from "../lib/format";
@@ -37,6 +38,19 @@ export default function HomePage() {
 
   return (
     <Layout>
+      <Seo
+        title="ห้องเรียนครูไต๋ | เว็บไซต์และเรื่องราวของครูไต๋"
+        description={DEFAULT_DESCRIPTION}
+        path="/"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: SITE_NAME,
+          url: `${SITE_URL}/`,
+          description: DEFAULT_DESCRIPTION,
+          inLanguage: "th-TH",
+        }}
+      />
       <main>
         <section className="hero">
           <div className="shell hero-grid">
