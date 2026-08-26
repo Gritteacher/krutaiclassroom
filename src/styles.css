@@ -321,8 +321,34 @@ footer { border-top: 1px solid var(--line); background: var(--cream); }
   .about-card { grid-template-columns: 1fr; padding: 30px 24px; }
   .about-mark { width: 68px; height: 68px; font-size: 1.8rem; }
   .about-button { grid-column: 1; }
-  .footer-wrap { align-items: flex-start; flex-direction: column; justify-content: center; }
-  .footer-meta { align-items: flex-start; text-align: left; }
+  footer {
+    padding: 14px;
+    border-top: 0;
+    background: linear-gradient(180deg, #f1f8f3 0%, #e7f2ea 100%);
+  }
+  .footer-wrap {
+    width: 100%; min-height: 0; align-items: center; flex-direction: column; justify-content: center;
+    gap: 16px; padding: 22px 18px 16px; border: 1px solid rgba(23, 107, 76, .1);
+    border-radius: 20px; background: #fff; text-align: center;
+    box-shadow: 0 10px 28px rgba(25, 81, 59, .08);
+  }
+  .footer-brand { flex-direction: column; gap: 10px; }
+  .footer-brand .brand-mark.small { width: 40px; height: 40px; border-radius: 12px; }
+  .footer-brand strong { display: block; font-size: .86rem; line-height: 1.5; }
+  .footer-brand p { margin-top: 2px; font-size: .66rem; }
+  .footer-meta {
+    width: 100%; flex-direction: row; align-items: center; justify-content: space-between;
+    gap: 10px; padding-top: 12px; border-top: 1px solid var(--line); text-align: left;
+  }
+  .footer-meta p { color: #87958f; font-size: .58rem; white-space: nowrap; }
+  .visit-counter {
+    display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px;
+    border-radius: 99px; background: var(--mint); color: var(--green-dark); font-size: .64rem;
+  }
+  .visit-counter::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+    box-shadow: 0 0 0 3px rgba(23, 107, 76, .1);
+  }
   .loading-grid, .form-row { grid-template-columns: 1fr; }
   .admin-topbar, .admin-hero, .admin-list-item { align-items: flex-start; flex-direction: column; }
   .admin-account { flex-wrap: wrap; }
