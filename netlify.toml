@@ -3,6 +3,30 @@
   publish = "dist"
 
 [[redirects]]
+  from = "https://grits.online/*"
+  to = "https://gritspace.cc/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://grits.online/*"
+  to = "https://gritspace.cc/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.grits.online/*"
+  to = "https://gritspace.cc/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.grits.online/*"
+  to = "https://gritspace.cc/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/sitemap.xml"
   to = "/.netlify/functions/sitemap"
   status = 200
