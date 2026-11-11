@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://grits.online/sitemap.xml
+Sitemap: https://gritspace.cc/sitemap.xml

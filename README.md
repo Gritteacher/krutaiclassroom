@@ -6,7 +6,7 @@
 
 - React + Vite
 - GitHub เก็บ source code
-- Netlify build และ host หน้าเว็บไซต์
+- Cloudflare Pages build และ host หน้าเว็บไซต์
 - Supabase Database เก็บเว็บไซต์และบทความ
 - Supabase Auth ป้องกันหน้า `/admin`
 - Supabase Storage เก็บภาพปก
@@ -47,19 +47,24 @@ npm run dev
 npm run build
 ```
 
-## เผยแพร่ผ่าน Netlify
+## เผยแพร่ผ่าน Cloudflare Pages
 
 1. Push โครงการนี้ไปยัง Public GitHub Repository
-2. ใน Netlify เลือก **Add new site → Import an existing project → GitHub**
-3. เลือก Repository นี้
-4. Build command และ Publish directory จะอ่านจาก `netlify.toml`
-5. เพิ่ม Environment variables:
+2. ใน Cloudflare เลือก **Workers & Pages → Create → Pages → Connect to Git**
+3. เลือก Repository นี้และ branch `main`
+4. ตั้ง Build command เป็น `npm run build` และ Build output directory เป็น `dist`
+5. เพิ่ม Environment variables สำหรับ Production และ Preview:
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
 6. Deploy site
-7. นำโดเมน Netlify ไปเพิ่มใน Supabase ที่ **Authentication → URL Configuration**
-   - Site URL: `https://YOUR-SITE.netlify.app`
-   - Redirect URL: `https://YOUR-SITE.netlify.app/**`
+7. เพิ่ม Custom domain `gritspace.cc`
+8. เพิ่มโดเมนใน Supabase ที่ **Authentication → URL Configuration**
+   - Site URL: `https://gritspace.cc`
+   - Redirect URL: `https://gritspace.cc/**`
+
+Cloudflare Pages ใช้ไฟล์ใน `functions/` สำหรับ Pages Functions, ใช้
+`public/_headers` สำหรับ response headers และใช้ `public/_routes.json` เพื่อให้
+เฉพาะ `/sitemap.xml` เรียก Pages Function
 
 ## ความปลอดภัย
 

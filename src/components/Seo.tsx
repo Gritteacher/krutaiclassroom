@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 const SITE_NAME = "ห้องเรียนครูไต๋ กฤษณพล ทองอุ่น";
-const SITE_URL = "https://grits.online";
+const SITE_URL = "https://gritspace.cc";
 const DEFAULT_DESCRIPTION = "เว็บไซต์ห้องเรียนครูไต๋ กฤษณพล ทองอุ่น พื้นที่รวมเว็บไซต์เพื่อการศึกษา ระบบงานในโรงเรียน และเรื่องราวของครูไต๋";
 
 type SeoProps = {

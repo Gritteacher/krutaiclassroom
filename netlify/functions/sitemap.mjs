@@ -1,4 +1,4 @@
-const SITE_URL = "https://grits.online";
+const SITE_URL = "https://gritspace.cc";
 
 function escapeXml(value) {
   return String(value)
