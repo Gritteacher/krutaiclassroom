@@ -1,0 +1,18 @@
+{
+  "name": "grits-domain-forwarder",
+  "account_id": "36723824247462632e940a959a4b77d8",
+  "main": "index.js",
+  "compatibility_date": "2026-11-12",
+  "workers_dev": true,
+  "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "grits.online/*",
+      "zone_name": "grits.online"
+    },
+    {
+      "pattern": "www.grits.online/*",
+      "zone_name": "grits.online"
+    }
+  ]
+}
