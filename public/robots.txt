@@ -1,4 +1,15 @@
 User-agent: *
 Allow: /
+Disallow: /qr/admin
+Disallow: /qr/dashboard
+Disallow: /qr/codes
+Disallow: /qr/links
+Disallow: /qr/analytics
+Disallow: /qr/settings
+Disallow: /qr/auth
+Disallow: /qr/login
+Disallow: /qr/register
+Disallow: /qr/forgot-password
+Disallow: /qr/reset-password
 
 Sitemap: https://gritspace.cc/sitemap.xml

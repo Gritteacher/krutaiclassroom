@@ -49,6 +49,7 @@ export async function onRequestGet(context) {
   const entries = [
     urlEntry(`${SITE_URL}/`),
     urlEntry(`${SITE_URL}/stories`),
+    urlEntry(`${SITE_URL}/qr`),
     ...posts.map((post) =>
       urlEntry(
         `${SITE_URL}/stories/${encodeURIComponent(post.slug)}`,
