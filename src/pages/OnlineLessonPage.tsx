@@ -17,7 +17,6 @@ export default function OnlineLessonPage() {
             <p className="section-kicker">บทเรียนออนไลน์ · {religionLesson.category}</p>
             <h1>{religionLesson.title}</h1>
             <p className="lesson-subtitle">{religionLesson.subtitle}</p>
-            <div className="lesson-meta"><span>16 สไลด์ HTML</span><span>อ่านและนำเสนอได้บนมือถือ</span><span>เวอร์ชันตัวอย่าง</span></div>
           </div>
         </section>
         <section className="lesson-overview shell">
@@ -26,7 +25,7 @@ export default function OnlineLessonPage() {
           <div className="lesson-info-card lesson-terms"><p className="section-kicker">คำสำคัญ</p><div>{religionLesson.keyTerms.map((term) => <span key={term}>{term}</span>)}</div></div>
         </section>
         <section className="lesson-slides shell" aria-labelledby="lesson-slides-title">
-          <div className="section-head compact"><div><p className="section-kicker">HTML SLIDES</p><h2 id="lesson-slides-title">สไลด์บทเรียน</h2></div><p className="section-note">เลือกสไลด์จากสารบัญ หรือใช้ปุ่มลูกศรเพื่อเดินหน้าและย้อนกลับ</p></div>
+          <div className="section-head compact"><div><p className="section-kicker">สไลด์ต้นฉบับ</p><h2 id="lesson-slides-title">สไลด์บทเรียน</h2></div><p className="section-note">เลือกสไลด์จากสารบัญ หรือใช้ปุ่มลูกศรเพื่อเดินหน้าและย้อนกลับ</p></div>
           <LessonSlideViewer slides={religionLesson.slides} />
         </section>
         <section className="lesson-review shell"><div><p className="section-kicker">ทบทวนความรู้</p><h2>เรียนรู้จากสไลด์และแลกเปลี่ยนความคิดเห็น</h2><p>เนื้อหานี้เรียบเรียงจากสไลด์ประกอบการสอน พร้อมคำถามชวนคิดและกิจกรรมท้ายบท เพื่อใช้ทบทวนและอภิปรายร่วมกันในชั้นเรียน</p></div><span>บทเรียนออนไลน์</span></section>
