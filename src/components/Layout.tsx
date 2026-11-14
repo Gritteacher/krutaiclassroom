@@ -13,6 +13,7 @@ export default function Layout({ children, footer = true }: { children: ReactNod
             <span className="brand-mark"><BookStack /></span>
             <span>ห้องเรียนครูไต๋ กฤษณพล ทองอุ่น</span>
           </Link>
+          <Link className="mobile-lesson-button" to={religionLessonPath}>บทเรียนออนไลน์</Link>
           <nav aria-label="เมนูหลัก">
             <Link to="/#websites">เว็บไซต์</Link>
             <Link to={religionLessonPath}>บทเรียนออนไลน์</Link>
