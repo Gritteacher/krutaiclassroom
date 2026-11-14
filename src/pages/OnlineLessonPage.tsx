@@ -26,7 +26,7 @@ export default function OnlineLessonPage() {
         </section>
         <section className="lesson-slides shell" aria-labelledby="lesson-slides-title">
           <div className="section-head compact"><div><p className="section-kicker">สไลด์ต้นฉบับ</p><h2 id="lesson-slides-title">สไลด์บทเรียน</h2></div><p className="section-note">เลือกสไลด์จากสารบัญ หรือใช้ปุ่มลูกศรเพื่อเดินหน้าและย้อนกลับ</p></div>
-          <LessonSlideViewer slides={religionLesson.slides} />
+          <LessonSlideViewer slides={religionLesson.slides.map((slide, index) => ({ ...slide, details: religionLesson.slideDetails[index] }))} />
         </section>
         <section className="lesson-review shell"><div><p className="section-kicker">ทบทวนความรู้</p><h2>เรียนรู้จากสไลด์และแลกเปลี่ยนความคิดเห็น</h2><p>เนื้อหานี้เรียบเรียงจากสไลด์ประกอบการสอน พร้อมคำถามชวนคิดและกิจกรรมท้ายบท เพื่อใช้ทบทวนและอภิปรายร่วมกันในชั้นเรียน</p></div><span>บทเรียนออนไลน์</span></section>
       </main>

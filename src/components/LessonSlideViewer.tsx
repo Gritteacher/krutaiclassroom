@@ -37,6 +37,7 @@ export default function LessonSlideViewer({ slides }: { slides: LessonSlide[] })
             <p className="lesson-slide-eyebrow">คำอธิบายเพิ่มเติม</p>
             <h3>{slide.title}</h3>
             <p>{slide.explanation}</p>
+            {slide.details?.length ? <div className="lesson-slide-details"><strong>ประเด็นที่ควรจำ</strong><ul>{slide.details.map((detail) => <li key={detail}>{detail}</li>)}</ul></div> : null}
           </div>
         </article>
         <div className="lesson-stage-controls">
