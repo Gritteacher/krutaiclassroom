@@ -5,6 +5,7 @@ import StoryPage from "./pages/StoryPage";
 import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import OnlineLessonPage from "./pages/OnlineLessonPage";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/stories" element={<StoriesPage />} />
       <Route path="/stories/:slug" element={<StoryPage />} />
+      <Route path="/lessons/:slug" element={<OnlineLessonPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/admin" element={<AdminPage />} />
       <Route path="*" element={<NotFoundPage />} />
