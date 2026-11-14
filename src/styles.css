@@ -208,7 +208,7 @@ footer { border-top: 1px solid var(--line); background: var(--cream); }
 .lesson-page { background: #f7faf8; color: var(--ink); }
 .lesson-hero { padding-block: 54px 58px; background: linear-gradient(135deg, #edf7f0 0%, #fff 74%); border-bottom: 1px solid var(--line); }
 .lesson-hero .back-link { margin-bottom: 28px; }
-.lesson-draft-badge { display: inline-flex; margin-bottom: 18px; padding: 6px 11px; border: 1px solid #e4d9a9; border-radius: 99px; background: #fff9df; color: #75621b; font-size: .74rem; font-weight: 700; }
+.lesson-badge { display: inline-flex; margin-bottom: 18px; padding: 6px 11px; border: 1px solid #e4d9a9; border-radius: 99px; background: #fff9df; color: #75621b; font-size: .74rem; font-weight: 700; }
 .lesson-hero h1 { max-width: 850px; margin: 0; font-size: clamp(2.2rem, 5vw, 4.65rem); line-height: 1.16; letter-spacing: -.06em; }
 .lesson-subtitle { margin: 14px 0 0; color: var(--muted); font-size: 1.1rem; line-height: 1.7; }
 .lesson-meta { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }

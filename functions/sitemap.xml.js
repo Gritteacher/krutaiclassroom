@@ -1,4 +1,5 @@
 const SITE_URL = "https://gritspace.cc";
+const LESSON_URL = `${SITE_URL}/lessons/${encodeURIComponent("ความรู้ทั่วไปเกี่ยวกับศาสนา")}`;
 
 function escapeXml(value) {
   return String(value)
@@ -50,6 +51,7 @@ export async function onRequestGet(context) {
     urlEntry(`${SITE_URL}/`),
     urlEntry(`${SITE_URL}/stories`),
     urlEntry(`${SITE_URL}/qr`),
+    urlEntry(LESSON_URL),
     ...posts.map((post) =>
       urlEntry(
         `${SITE_URL}/stories/${encodeURIComponent(post.slug)}`,

@@ -141,3 +141,5 @@ export const religionLesson = {
 };
 
 export type ReligionLesson = typeof religionLesson;
+
+export const religionLessonPath = `/lessons/${encodeURIComponent(religionLesson.slug)}`;

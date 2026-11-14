@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { BookStack } from "./SvgArt";
 import VisitCounter from "./VisitCounter";
+import { religionLessonPath } from "../data/religionLesson";
 
 export default function Layout({ children, footer = true }: { children: ReactNode; footer?: boolean }) {
   return (
@@ -14,6 +15,7 @@ export default function Layout({ children, footer = true }: { children: ReactNod
           </Link>
           <nav aria-label="เมนูหลัก">
             <Link to="/#websites">เว็บไซต์</Link>
+            <Link to={religionLessonPath}>บทเรียนออนไลน์</Link>
             <Link to="/stories">เรื่องราว</Link>
             <Link to="/#about">เกี่ยวกับ</Link>
           </nav>
